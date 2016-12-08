@@ -7,13 +7,23 @@
 //
 
 import Foundation
+//Declare Delegate
+protocol GitHubAPIControllerProtocol
+{
+    //declare function.  don need to say what it does
+    func didReceiveAPIResults(_ results: [Any])
+}
 
 class GitHubAPIController
 {
-    //initializing the class GitHUbAPIController
-    init()
+    //property named delegate that stores gitHubAPIControllerProtocol
+    var delegate: GitHubAPIControllerProtocol
+    //initializing the class GitHubAPIController.  it is to create new objects of this type GHAPICProtocl
+    //argument called delegate that passes in GitHubAPIContollerProtocol
+    init(delegate: GitHubAPIControllerProtocol)
     {
-    
+        //take the delegate argument and set it equal to the property called delegate.  since they have the same name use self.delegate for the property
+        self.delegate = delegate
     }
     //creating a method to search git hub. friend name is the argument passed in of type string.
     func searchGitHubFor(_ friendName: String)
@@ -38,21 +48,48 @@ class GitHubAPIController
                     print(error!.localizedDescription)
                 }
                 
-                else if let dictionary = self.parseJSON(data!)
-                {
-                    
-                }
-                
             })
             task.resume()
 
         }
     }
-    // write a method to parse JSON file
-    func parseJSON(_ data: Data) -> [String: Any]?
+    // write a method to parse JSON file.  GitHub returns a Dictionary
+    func parseJSON(_ FriendInfo: Data) -> [String: Any]?
     {
-        //will add more just returning nil for no
-        return nil
+        do
+        {
+            let json = try JSONSerialization.jsonObject(with: FriendInfo, options: [])
+            if let dictionary = json as? [String: Any]//is a key word for wild card.
+            {
+                return dictionary
+            }
+            else
+            {
+                return nil
+            }
+            
+        }
+        // if parsing json fails then goes to catch block
+        catch let error as NSError
+        {
+            //print error and return nil
+            print(error)
+            return nil
+        }
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

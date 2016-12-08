@@ -8,4 +8,16 @@
 
 import Foundation
 
+struct Friend
+{
+    let name: String
+    let company: String
+    let avatar: String
 
+    init(name: String, company: String, avatar: String)
+    {
+        self.name = name
+        self.company = company
+        self.avatar = avatar
+    }
+}

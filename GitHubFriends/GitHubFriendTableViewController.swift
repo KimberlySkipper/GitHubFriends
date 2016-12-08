@@ -8,12 +8,13 @@
 
 import UIKit
 
-class GitHubFriendTableViewController: UITableViewController
+class GitHubFriendTableViewController: UITableViewController, GitHubAPIControllerProtocol
 {
     // this property will persist throughout the entire class.
     //!(optional) it can be nil or it can have a value. currently it is nil a reference that points to nothing
     //name: type
     var api: GitHubAPIController!
+    //var gitHubUser = [friend]()
 
     override func viewDidLoad()
     {
@@ -21,8 +22,8 @@ class GitHubFriendTableViewController: UITableViewController
         super.viewDidLoad()
         title = "Friend List"
         //initalize the GitHUbAPI controller.(make new GHapiController object and store it in the api property.)
-        api = GitHubAPIController()
-//        api.searchGitHubFor("HeatherSummy")
+        api = GitHubAPIController(delegate: self)
+        api.searchGitHubFor("jskipgit")
         
 
         
@@ -39,7 +40,7 @@ class GitHubFriendTableViewController: UITableViewController
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -56,6 +57,15 @@ class GitHubFriendTableViewController: UITableViewController
         // Configure the cell...
 
         return cell
+    }
+    //send the results back using this Protocol
+    func didReceiveAPIResults (_ results:[Any])
+    {
+        //let queue = DispatchQueue.main
+        //queue.async
+        
+         print("WINNER WINNER CHICKEN DINNER")
+        
     }
     
 
