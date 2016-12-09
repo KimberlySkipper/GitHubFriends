@@ -11,7 +11,7 @@ import Foundation
 protocol GitHubAPIControllerProtocol
 {
     //declare function.  don need to say what it does
-    func didReceiveAPIResults(_ results: [Any])
+    func didReceiveAPIResults(_ dictionary: [String: Any])
 }
 
 class GitHubAPIController
@@ -29,8 +29,10 @@ class GitHubAPIController
     func searchGitHubFor(_ friendName: String)
     {
         //escaping means that you are replacing the charaters that are present with special charatcters, such as the spaces for percent signs. this is given "CharacterSet.aplphanumerics" whis is all letters Aa-Zz and numbers 0-9
+        
+        
         if let escapedFriendName = friendName.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
-        {
+            {
             //search GitHub API
             let urlPath = "https://api.github.com/users/\(escapedFriendName)"
             //URL object initalized with string.  (convert the string to a URL)
@@ -46,6 +48,15 @@ class GitHubAPIController
                 if error != nil
                 {
                     print(error!.localizedDescription)
+                }
+                //if I dont get an error then I want to parse the data and return it to TVC
+                else if let dictionary = self.parseJSON(data!)//data is the type i want to parse?
+                {
+//                    if let name = dictionary["name"] as? [Any]
+//                    {
+                    //the I want to share the data with the TVC?
+                    self.delegate.didReceiveAPIResults(dictionary)
+//                    }
                 }
                 
             })

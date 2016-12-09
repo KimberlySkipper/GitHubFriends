@@ -14,7 +14,7 @@ class GitHubFriendTableViewController: UITableViewController, GitHubAPIControlle
     //!(optional) it can be nil or it can have a value. currently it is nil a reference that points to nothing
     //name: type
     var api: GitHubAPIController!
-    //var gitHubUser = [friend]()
+    var arrayOfFriends = [Friend]()
 
     override func viewDidLoad()
     {
@@ -24,6 +24,8 @@ class GitHubFriendTableViewController: UITableViewController, GitHubAPIControlle
         //initalize the GitHUbAPI controller.(make new GHapiController object and store it in the api property.)
         api = GitHubAPIController(delegate: self)
         api.searchGitHubFor("jskipgit")
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "FriendCell")
         
 
         
@@ -39,36 +41,43 @@ class GitHubFriendTableViewController: UITableViewController, GitHubAPIControlle
 
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        // #warning Incomplete implementation, return the number of sections
+        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        return arrayOfFriends.count
+//        return 1
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath)
 
         // Configure the cell...
+        let aFriend = arrayOfFriends[indexPath.row]
+        cell.textLabel?.text = aFriend.name
 
         return cell
     }
     //send the results back using this Protocol
-    func didReceiveAPIResults (_ results:[Any])
+    func didReceiveAPIResults (_ dictionary:[String: Any])
     {
-        //let queue = DispatchQueue.main
-        //queue.async
-        
-         print("WINNER WINNER CHICKEN DINNER")
-        
-    }
+        let queue = DispatchQueue.main
+        queue.async
+        {
+            //information from Friends Model class
+            if let madeAFriend = Friend.createFriendFromJSONDictionary(dictionary)
+            {
+                self.arrayOfFriends.append(madeAFriend)
+                self.tableView.reloadData()
+            }
+        }
     
-
+    }
     
 
 }
