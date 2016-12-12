@@ -29,8 +29,6 @@ class GitHubAPIController
     func searchGitHubFor(_ friendName: String)
     {
         //escaping means that you are replacing the charaters that are present with special charatcters, such as the spaces for percent signs. this is given "CharacterSet.aplphanumerics" whis is all letters Aa-Zz and numbers 0-9
-        
-        
         if let escapedFriendName = friendName.addingPercentEncoding(withAllowedCharacters: CharacterSet.alphanumerics)
             {
             //search GitHub API
@@ -52,11 +50,9 @@ class GitHubAPIController
                 //if I dont get an error then I want to parse the data and return it to TVC
                 else if let dictionary = self.parseJSON(data!)//data is the type i want to parse?
                 {
-//                    if let name = dictionary["name"] as? [Any]
-//                    {
+
                     //the I want to share the data with the TVC?
                     self.delegate.didReceiveAPIResults(dictionary)
-//                    }
                 }
                 
             })

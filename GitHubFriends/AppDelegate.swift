@@ -20,10 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         // Override point for customization after application launch.
         //create a window object. instanciate/initialize a new window object. make the window the same size as the screen.
         window = UIWindow(frame: UIScreen.main.bounds)
-        //now create a new NewFriends View Controller object.  this constant only exsists in this function(method)
+        
+        //now create a new GitHubFriend View Controller object.  this constant only exsists in this function(method)
         let friendListVC = GitHubFriendTableViewController()
-        //embbed in navigation bar. the root view controller is the Newfriend view controller for the UINavigationCOntroller
+        
+        //create newFriend VC.
+        //********let newFriendVC = NewFriendViewController()
+        //embbed in navigation bar. the root view controller is the GitHubFriend view controller for the UINavigationCOntroller
         let navController = UINavigationController(rootViewController: friendListVC)
+        //added NewFriendViewController
+       // *****navController.viewControllers.append(newFriendVC)
+        
+        
+        
         // making the navigation controller the initial view.
         window?.rootViewController = navController
         //call a funtion on the window where you make "key window" and make it visible. necessary even though we only have one window.

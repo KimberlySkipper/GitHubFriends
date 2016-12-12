@@ -24,32 +24,18 @@ struct Friend
         
     }
 
-    //calling func directly on structure. producing friend arrays from a dictionary.
+    //calling func directly on structure. producing a friend object from a dictionary.
     static func createFriendFromJSONDictionary(_ aDictionaryMadeFromJSON: [String: Any]) -> Friend?
     {
         var friend: Friend?
         if aDictionaryMadeFromJSON.count > 0
         {
-//            for anEntry in aDictionaryMadeFromJSON
-//            {
-                //look at each result in the results array and make sure it is a dictionary
-                
-                //looking for a "key" called collection name and cast it as a string
-                //(dictionary != nil)
-                
-//                if let subDictinoary = anEntry as? [String: Any]
-//                {
-                    let aName = aDictionaryMadeFromJSON["name"] as? String
-                    let aCompany = aDictionaryMadeFromJSON["company"] as? String
-                    let avatar_url = aDictionaryMadeFromJSON["avatar_url"] as? String ?? ""
-                    friend = Friend(name: aName!, company: aCompany!, avatar_url: avatar_url)
-                    //friend.append(aFriend)
+            //set name to accept empty string as a value otherwise the app will crash of given a name that is not valid.
+            let aName = aDictionaryMadeFromJSON["name"] as? String ?? ""
+            let aCompany = aDictionaryMadeFromJSON["company"] as? String ?? ""
+            let avatar_url = aDictionaryMadeFromJSON["avatar_url"] as? String ?? ""
+            friend = Friend(name: aName, company: aCompany, avatar_url: avatar_url)
         
-//                }
-                
-                
-
-//              }
         }
         return friend
         
