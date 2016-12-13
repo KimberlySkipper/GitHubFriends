@@ -30,7 +30,7 @@ struct Friend
         var friend: Friend?
         if aDictionaryMadeFromJSON.count > 0
         {
-            //set name to accept empty string as a value otherwise the app will crash of given a name that is not valid.
+            //set name to accept empty string as a value otherwise the app will crash of given a name that is not valid.  "??"" is Default Value"
             let aName = aDictionaryMadeFromJSON["name"] as? String ?? ""
             let aCompany = aDictionaryMadeFromJSON["company"] as? String ?? ""
             let avatar_url = aDictionaryMadeFromJSON["avatar_url"] as? String ?? ""

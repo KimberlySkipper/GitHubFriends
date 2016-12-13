@@ -39,25 +39,18 @@ class GitHubFriendTableViewController: UITableViewController, GitHubAPIControlle
     }
 
     
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
+// MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
     }
 
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        //returns the number of elements in the array
         return arrayOfFriends.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath)
@@ -68,7 +61,7 @@ class GitHubFriendTableViewController: UITableViewController, GitHubAPIControlle
     }
     
     
-    //send the results back using this protocol method
+    //send the results back to the TVC using this protocol method
     func didReceiveAPIResults (_ dictionary:[String: Any])
     {
         let queue = DispatchQueue.main
